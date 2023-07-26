@@ -383,7 +383,7 @@ Wrappers are a special kind of handler. They don't dispense log records themselv
 
 When contributing code, please consider the following things:
 
-- [ ] Make sure `yarn test` passes.
+- [ ] Make sure `npm run test` passes.
 - [ ] Add tests for new features or for bug fixes that have not previously been caught by tests.
 - [ ] Use [imperative mood](https://en.wikipedia.org/wiki/Imperative_mood) for commit messages and function doc blocks.
 - [ ] Add doc blocks to interfaces, classes, methods and public properties.

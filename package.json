@@ -5,7 +5,7 @@
     "packages/*"
   ],
   "scripts": {
-    "pretest": "yarn build:typescript",
+    "pretest": "npm run build:typescript",
     "test:lint:js": "lerna exec --no-bail --parallel -- eslint \"src/**/*.ts\"",
     "test:lint:js:fix": "lerna exec --no-bail --parallel -- eslint \"src/**/*.ts\" --fix",
     "test:lint:readme": "lerna exec --no-bail --parallel -- remark --quiet --no-stdout -u validate-links README.md",
@@ -18,7 +18,7 @@
     "build:clear:build": "lerna exec --parallel -- del lib",
     "build:clear": "run-s build:clear:modules build:clear:build build:clear:base",
     "build:typescript": "lerna exec -- run-root single:build:typescript",
-    "build:reset": "yarn build:clear && yarn install && yarn build:typescript",
+    "build:reset": "run-s build:clear install build:typescript",
     "prepack": "lerna exec --parallel -- resolve-markdown-links",
     "postpack": "lerna exec --parallel --no-bail -- restore-markdown-links",
     "single:build:typescript": "tsc --declaration --module esnext && rename-js-to-mjs lib && concurrently \"fix-extensionless-imports lib\" \"tsc --module commonjs\""
@@ -27,7 +27,7 @@
     "@babel/parser": "^7.11.5",
     "@livy/bin": "file:bin",
     "@types/jest": "^26.0.14",
-    "@types/node": "^14.11.2",
+    "@types/node": "^18.17.0",
     "@typescript-eslint/eslint-plugin": "^4.2.0",
     "@typescript-eslint/parser": "^4.2.0",
     "builtin-modules": "^3.1.0",
