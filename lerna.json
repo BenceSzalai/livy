@@ -4,5 +4,6 @@
     "run": {
       "npmClient": "npm"
     }
-  }
+  },
+  "useWorkspaces": true
 }
