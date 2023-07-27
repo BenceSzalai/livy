@@ -4,6 +4,17 @@
     "src": ["{projectRoot}/src/**/*"]
   },
   "targetDefaults": {
+    "lint:js": {
+      "inputs": ["src"]
+    },
+    "lint:js:fix": {
+      "inputs": ["src"],
+      "outputs": ["{projectRoot}/src"]
+    },
+    "lint:readme": {
+      "inputs": ["{projectRoot}/README.md"],
+      "outputs": ["{projectRoot}/README.md"]
+    },
     "build": {
       "dependsOn": ["^build"],
       "inputs": ["src", "^src"],
@@ -15,6 +26,9 @@
       "runner": "nx/tasks-runners/default",
       "options": {
         "cacheableOperations": [
+          "lint:js",
+          "lint:js:fix",
+          "lint:readme",
           "build"
         ]
       }

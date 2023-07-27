@@ -33,7 +33,10 @@
   "repository": "https://github.com/loilo/livy/tree/master/packages/hostname-processor",
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1",
-    "build": "tsc --declaration --module esnext && rename-js-to-mjs lib && concurrently \"fix-extensionless-imports lib\" \"tsc --module commonjs\""
+    "build": "tsc --declaration --module esnext && rename-js-to-mjs lib && concurrently \"fix-extensionless-imports lib\" \"tsc --module commonjs\"",
+    "lint:js": "eslint \"src/**/*.ts\" -c \"../../.eslintrc.yml\"",
+    "lint:js:fix": "eslint \"src/**/*.ts\" -c \"../../.eslintrc.yml\" --fix",
+    "lint:readme": "remark --quiet --no-stdout -u validate-links README.md"
   },
   "bugs": {
     "url": "https://github.com/loilo/livy/issues"

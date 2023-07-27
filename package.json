@@ -5,12 +5,12 @@
     "packages/*"
   ],
   "scripts": {
-    "pretest": "npm run build:typescript",
-    "test:lint:js": "lerna exec --no-bail --parallel -- eslint \"src/**/*.ts\"",
-    "test:lint:js:fix": "lerna exec --no-bail --parallel -- eslint \"src/**/*.ts\" --fix",
-    "test:lint:readme": "lerna exec --no-bail --parallel -- remark --quiet --no-stdout -u validate-links README.md",
+    "pretest:jest": "npm run build:typescript",
+    "test:lint:js": "lerna run lint:js",
+    "test:lint:js:fix": "lerna run lint:js:fix",
+    "test:lint:readme": "lerna run lint:readme",
     "test:check-dependencies": "lerna exec --no-bail --parallel -- check-dependencies",
-    "test:lint": "run-p test:lint:js:fix test:lint:readme",
+    "test:lint": "run-s test:lint:js:fix test:lint:readme",
     "test:jest": "cross-env FORCE_COLOR=3 jest --coverage",
     "test": "run-s test:lint test:check-dependencies test:jest",
     "build:clear:base": "del node_modules",
