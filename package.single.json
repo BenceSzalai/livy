@@ -1,0 +1,5 @@
+{
+  "scripts": {
+    "build": "tsc --declaration --module esnext && rename-js-to-mjs lib && concurrently \"fix-extensionless-imports lib\" \"tsc --module commonjs\""
+  }
+}

@@ -17,11 +17,11 @@
     "build:clear:modules": "lerna exec --parallel -- del node_modules",
     "build:clear:build": "lerna exec --parallel -- del lib",
     "build:clear": "run-s build:clear:modules build:clear:build build:clear:base",
-    "build:typescript": "lerna exec -- run-root single:build:typescript",
+    "build:typescript": "lerna run build",
     "build:reset": "run-s build:clear install build:typescript",
     "prepack": "lerna exec --parallel -- resolve-markdown-links",
     "postpack": "lerna exec --parallel --no-bail -- restore-markdown-links",
-    "single:build:typescript": "tsc --declaration --module esnext && rename-js-to-mjs lib && concurrently \"fix-extensionless-imports lib\" \"tsc --module commonjs\""
+    "inherit": "update-single-scripts"
   },
   "devDependencies": {
     "@babel/parser": "^7.11.5",

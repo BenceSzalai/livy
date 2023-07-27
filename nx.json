@@ -1,0 +1,23 @@
+{
+  "extends": "nx/presets/npm.json",
+  "namedInputs": {
+    "src": ["{projectRoot}/src/**/*"]
+  },
+  "targetDefaults": {
+    "build": {
+      "dependsOn": ["^build"],
+      "inputs": ["src", "^src"],
+      "outputs": ["{projectRoot}/lib"]
+    }
+  },
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "nx/tasks-runners/default",
+      "options": {
+        "cacheableOperations": [
+          "build"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,46 @@
+#!/usr/bin/env node
+
+// This utility will copy all scripts defined in `package.single.json` to each package's `package.json`.
+
+const fs = require('fs');
+const path = require('path');
+
+// Load the scripts from package.single.json
+const packageSinglePath = path.join(process.cwd(), 'package.single.json');
+const packageSingleData = fs.readFileSync(packageSinglePath);
+const packageSingleScripts = JSON.parse(packageSingleData).scripts;
+
+// Define the pattern to match package.json files in packages/*
+const packagesPath = path.join(process.cwd(), 'packages');
+
+// Get all directories in packages/
+const directories = fs.readdirSync(packagesPath, { withFileTypes: true })
+  .filter(dirent => dirent.isDirectory())
+  .map(dirent => dirent.name);
+
+// Iterate over each directory and modify the package.json file
+directories.forEach((directory) => {
+  const packageJsonPath = path.join(packagesPath, directory, 'package.json');
+
+  try {
+    // Check if the package.json file exists
+    if (fs.existsSync(packageJsonPath)) {
+      // Load the existing package.json
+      const packageData = fs.readFileSync(packageJsonPath);
+      const packageJson = JSON.parse(packageData);
+
+      // Merge the scripts from package.single.json
+      packageJson.scripts = {
+        ...packageJson.scripts,
+        ...packageSingleScripts,
+      };
+
+      // Save the modified package.json
+      fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
+      console.log(`Updated: ${packageJsonPath}`)
+    }
+  }
+  catch (e) {
+    console.log(`Failed to update: ${packageJsonPath}`, e)
+  }
+});

@@ -27,7 +27,8 @@
   },
   "repository": "https://github.com/loilo/livy/tree/master/packages/util",
   "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1"
+    "test": "echo \"Error: run tests from root\" && exit 1",
+    "build": "tsc --declaration --module esnext && rename-js-to-mjs lib && concurrently \"fix-extensionless-imports lib\" \"tsc --module commonjs\""
   },
   "bugs": {
     "url": "https://github.com/loilo/livy/issues"
