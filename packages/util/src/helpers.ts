@@ -9,7 +9,7 @@ import { AnyObject, Primitive } from './types'
  * new RegExp(sanitizeRegex(anyString))
  */
 export function sanitizeRegex(value: string) {
-  return value.replace(/[-[\]/{}()*+?.\\^$|]/g, '\\$&')
+  return value.replace(/[$()*+./?[\\\]^{|}-]/g, '\\$&')
 }
 
 /**
@@ -29,7 +29,9 @@ export function sanitizeRegex(value: string) {
  */
 export function replaceTokens(template: string, values: AnyObject) {
   const patternRegex = new RegExp(
-    `%(${Object.keys(values).map(sanitizeRegex).join('|')})%`,
+    `%(${Object.keys(values)
+      .map(element => sanitizeRegex(element))
+      .join('|')})%`,
     'g'
   )
   return template.replace(patternRegex, (_, token) => values[token])
@@ -200,6 +202,7 @@ export function fromEntries<T = any>(
 ): { [k in PropertyKey]: T }
 export function fromEntries(entries: Iterable<readonly any[]>): any
 export function fromEntries(entries: Iterable<readonly any[]>): any {
+  // eslint-disable-next-line unicorn/no-reduce
   return [...entries].reduce(
     (object, [key, value]) => ({
       ...object,

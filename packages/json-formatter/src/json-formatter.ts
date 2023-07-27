@@ -3,14 +3,12 @@ import { EOL } from '@livy/util/lib/environment'
 import { AbstractBatchFormatter } from '@livy/util/lib/formatters/abstract-batch-formatter'
 import { IncludedRecordProperties } from '@livy/util/lib/formatters/included-record-properties'
 
-/* eslint-disable no-redeclare */
-const BATCH_MODE_NEWLINES = Symbol('BATCH_MODE_NEWLINES')
-type BATCH_MODE_NEWLINES = typeof BATCH_MODE_NEWLINES
-const BATCH_MODE_JSON = Symbol('BATCH_MODE_JSON')
-type BATCH_MODE_JSON = typeof BATCH_MODE_JSON
-/* eslint-enable no-redeclare */
+const batchModeNewlines = Symbol('BATCH_MODE_NEWLINES')
+type BatchModeNewlines = typeof batchModeNewlines
+const batchModeJson = Symbol('BATCH_MODE_JSON')
+type BatchModeJson = typeof batchModeJson
 
-type BatchMode = BATCH_MODE_NEWLINES | BATCH_MODE_JSON
+type BatchMode = BatchModeNewlines | BatchModeJson
 
 export interface JsonFormatterOptions {
   /**
@@ -31,13 +29,13 @@ export class JsonFormatter extends AbstractBatchFormatter {
   /**
    * Use newline characters to delimit multiple lines when batch-formatting
    */
-  public static readonly BATCH_MODE_NEWLINES: BATCH_MODE_NEWLINES =
-    BATCH_MODE_NEWLINES
+  public static readonly BATCH_MODE_NEWLINES: BatchModeNewlines =
+    batchModeNewlines
 
   /**
    * Batch-format records as a JSON array
    */
-  public static readonly BATCH_MODE_JSON: BATCH_MODE_JSON = BATCH_MODE_JSON
+  public static readonly BATCH_MODE_JSON: BatchModeJson = batchModeJson
 
   /**
    * Which log record properties to include in the output
@@ -51,7 +49,7 @@ export class JsonFormatter extends AbstractBatchFormatter {
 
   public constructor({
     include = {},
-    batchMode = BATCH_MODE_NEWLINES
+    batchMode = batchModeNewlines
   }: Partial<JsonFormatterOptions> = {}) {
     super()
 
@@ -85,7 +83,7 @@ export class JsonFormatter extends AbstractBatchFormatter {
    * @inheritdoc
    */
   public formatBatch(records: LogRecord[]) {
-    if (this.batchMode === BATCH_MODE_JSON) {
+    if (this.batchMode === batchModeJson) {
       return `[${records.map(record => this.format(record)).join(',')}]`
     } else {
       return records.map(record => this.format(record)).join(EOL)

@@ -47,6 +47,7 @@ export function HTML(...args: any[]): HTMLChunk {
     const [strings, ...keys] = args as [TemplateStringsArray, ...any[]]
 
     return HTMLMask(
+      // eslint-disable-next-line unicorn/no-reduce
       strings.slice(1).reduce((carry, string, index) => {
         const data = keys[index]
 

@@ -16,13 +16,13 @@ lowlight.registerLanguage('json', require('highlight.js/lib/languages/json'))
 /**
  * Relevant tokens of the lowlight parser
  */
-const LowlightTokenMap = {
+const lowlightTokenMap = {
   attr: 'data_key',
   string: 'data_value_string',
   number: 'data_value_number',
   literal: 'data_value_literal'
 } as const
-type LowlightTokenMap = typeof LowlightTokenMap
+type LowlightTokenMap = typeof lowlightTokenMap
 
 export interface HtmlOnelineFormatterOptions {
   /**
@@ -206,7 +206,7 @@ export class HtmlOnelineFormatter extends AbstractBatchFormatter {
     if (color !== 'inherit') {
       return `color: ${color}`
     } else {
-      return undefined
+      return
     }
   }
 
@@ -365,7 +365,7 @@ export class HtmlOnelineFormatter extends AbstractBatchFormatter {
                   .filter((className: string) => className.startsWith('hljs-'))
                   .map((className: string) =>
                     this.getContextTokenStyle(
-                      LowlightTokenMap[
+                      lowlightTokenMap[
                         className.slice(5) as keyof LowlightTokenMap
                       ]
                     )
