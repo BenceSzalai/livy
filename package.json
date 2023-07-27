@@ -10,7 +10,7 @@
     "test:lint:js:fix": "lerna exec --no-bail --parallel -- eslint \"src/**/*.ts\" --fix",
     "test:lint:readme": "lerna exec --no-bail --parallel -- remark --quiet --no-stdout -u validate-links README.md",
     "test:check-dependencies": "lerna exec --no-bail --parallel -- check-dependencies",
-    "test:lint": "run-p test:lint:*",
+    "test:lint": "run-p test:lint:js:fix test:lint:readme",
     "test:jest": "cross-env FORCE_COLOR=3 jest --coverage",
     "test": "run-s test:lint test:check-dependencies test:jest",
     "build:clear:base": "del node_modules",
