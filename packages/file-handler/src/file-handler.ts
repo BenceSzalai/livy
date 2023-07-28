@@ -60,7 +60,9 @@ export class FileHandler
       // istanbul ignore next: Unfortunately, code coverage does not recognize this line as covered
       throw new Error(
         `Provided log path directory "${directory}" does not exist: ${
-          error instanceof Error ? error.message : error
+          error && typeof error === 'object' && 'message' in error
+            ? error.message
+            : error
         }`
       )
     }
