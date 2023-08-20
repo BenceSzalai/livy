@@ -48,3 +48,7 @@ export function createLogger(
       )
   }
 }
+
+export { AsyncLogger } from './async-logger.js'
+export { MixedLogger } from './mixed-logger.js'
+export { SyncLogger } from './sync-logger.js'
