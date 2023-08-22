@@ -1,0 +1,23 @@
+import type { SyncHandlerInterface } from '@livy/contracts';
+import { AbstractBatchHandler } from '@livy/util/handlers/abstract-batch-handler';
+/**
+ * No-op
+ *
+ * Handles anything, but does nothing, and does not stop bubbling to the rest of the stack.
+ * This can be used for testing, or to disable a handler when overriding a configuration without
+ * influencing the rest of the stack.
+ */
+export declare class NoopHandler extends AbstractBatchHandler implements SyncHandlerInterface {
+    /**
+     * @inheritdoc
+     */
+    isHandling(): boolean;
+    /**
+     * @inheritdoc
+     */
+    handle(): Promise<boolean>;
+    /**
+     * @inheritdoc
+     */
+    handleSync(): boolean;
+}
