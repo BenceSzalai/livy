@@ -71,6 +71,14 @@ The following options are available:
 }
 ```
 
+### `flowLevel`
+
+**Type:** `number`
+
+**Default:** `2`
+
+**Description:** Specifies level of nesting. Until this level nested objects are printed in YAML like nested layout. Below this level nested object structures are printed as inline JSON. To allow unlimited depth use `-1`.
+
 ## Public API
 
 ### `decorated`

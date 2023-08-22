@@ -1,4 +1,7 @@
-import { AnsiLineFormatter } from '@livy/ansi-line-formatter'
+import {
+  AnsiLineFormatter,
+  AnsiLineFormatterOptions,
+} from '@livy/ansi-line-formatter'
 import { EOL } from '@livy/util/environment'
 import { isEmpty } from '@livy/util/helpers'
 import chalk from 'chalk'
@@ -6,10 +9,33 @@ import { dump } from 'js-yaml'
 import { emphasize } from 'emphasize'
 import chalkTemplate from 'chalk-template'
 
+export interface ConsoleFormatterOptions extends AnsiLineFormatterOptions {
+  /**
+   * Specifies level of nesting.
+   * Until this level nested objects are printed in YAML like nested layout.
+   * Below this level nested object structures are printed as inline JSON.
+   */
+  flowLevel: number | undefined
+}
+
 /**
  * Formats log records with highlighting for terminals in a human-readable way
  */
 export class ConsoleFormatter extends AnsiLineFormatter {
+  /**
+   * Specifies level of nesting.
+   * Until this level nested objects are printed in YAML like nested layout.
+   * Below this level nested object structures are printed as inline JSON.
+   */
+  public flowLevel: number | undefined
+
+  public constructor({
+    flowLevel = 2,
+    ...options
+  }: Partial<ConsoleFormatterOptions> = {}) {
+    super(options)
+    this.flowLevel = flowLevel
+  }
   /**
    * Format a record's context object
    *
@@ -124,7 +150,7 @@ export class ConsoleFormatter extends AnsiLineFormatter {
       let serializedYaml = dump(sanitizedObject, {
         skipInvalid: true,
         indent: 2,
-        flowLevel: 2,
+        flowLevel: this.flowLevel,
       })
 
       // Empty object string may result from skipped invalid data like JS functions
