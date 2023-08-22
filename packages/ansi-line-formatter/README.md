@@ -71,6 +71,27 @@ The following options are available:
 }
 ```
 
+### `levelColors`
+
+**Type:** `Partial<Record<LogLevel, ColorString>>` where `ColorString` is a [chalk](https://github.com/chalk/chalk) `ForegroundColorName` optionally suffixed with a `.` and a `ModifierName`
+
+**Default:** `{}`
+
+**Description:** The colors to be used when printing the log level name in the console (if supported by the given console). The values of the passed object override the following defaults:
+
+```js
+{
+  debug    : 'blue.dim',
+  info     : 'blue',
+  notice   : 'blue',
+  warning  : 'yellow',
+  error    : 'red',
+  critical : 'red',
+  alert    : 'red',
+  emergency: 'red',
+}
+```
+
 ## Public API
 
 ### `decorated`

@@ -1,11 +1,15 @@
 import type { LogLevel } from '@livy/contracts'
 import { LineFormatter, LineFormatterOptions } from '@livy/line-formatter'
 import { isEmpty } from '@livy/util/helpers'
-import chalk, { supportsColor } from 'chalk'
+import chalk, { ForegroundColorName, ModifierName, supportsColor } from 'chalk'
 import { DateTime } from 'luxon'
 
 import { emphasize } from 'emphasize'
 import chalkTemplate from 'chalk-template'
+
+export type ColorString =
+  | `${ForegroundColorName}.${ModifierName}`
+  | ForegroundColorName
 
 export interface AnsiLineFormatterOptions extends LineFormatterOptions {
   /**
@@ -14,6 +18,12 @@ export interface AnsiLineFormatterOptions extends LineFormatterOptions {
    * to be automatically detected
    */
   decorated: boolean | undefined
+
+  /**
+   * The colors to use for each log level.
+   * The missing levels will use their default colors.
+   */
+  levelColors: Partial<Record<LogLevel, ColorString>>
 }
 
 /**
@@ -25,12 +35,20 @@ export class AnsiLineFormatter extends LineFormatter {
    */
   public decorated: boolean | undefined
 
+  /**
+   * The colors to use for each log level.
+   * The missing levels will use their default colors.
+   */
+  public levelColors: Partial<Record<LogLevel, ColorString>>
+
   public constructor({
     decorated,
+    levelColors = {},
     ...options
   }: Partial<AnsiLineFormatterOptions> = {}) {
     super(options)
     this.decorated = decorated
+    this.levelColors = levelColors
   }
 
   /**
@@ -58,35 +76,35 @@ export class AnsiLineFormatter extends LineFormatter {
       let color: string
       switch (level) {
         case 'emergency':
-          color = 'red'
+          color = this.levelColors.emergency ?? 'red'
           break
 
         case 'alert':
-          color = 'red'
+          color = this.levelColors.alert ?? 'red'
           break
 
         case 'critical':
-          color = 'red'
+          color = this.levelColors.critical ?? 'red'
           break
 
         case 'error':
-          color = 'red'
+          color = this.levelColors.error ?? 'red'
           break
 
         case 'warning':
-          color = 'yellow'
+          color = this.levelColors.warning ?? 'yellow'
           break
 
         case 'notice':
-          color = 'blue'
+          color = this.levelColors.notice ?? 'blue'
           break
 
         case 'info':
-          color = 'blue'
+          color = this.levelColors.info ?? 'blue'
           break
 
         case 'debug':
-          color = 'blue.dim'
+          color = this.levelColors.debug ?? 'blue.dim'
           break
 
         /* c8 ignore next 2: This should never happen, but is included for type safety */
