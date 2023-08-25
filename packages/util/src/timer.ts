@@ -2,7 +2,8 @@
  * A tiny and simple performance measurement tool for Node.js and the browser, measuring elapsed time in milliseconds
  */
 
-import { isNodeJs } from './environment.js'
+// eslint-disable-next-line local-rules/no-unknown-import
+import { isNodeJs } from '@livy/util/environment'
 
 /**
  * The common timer interface

@@ -1,5 +1,6 @@
 import type { FormatterInterface, LogRecord } from '@livy/contracts'
-import { EOL } from '../environment.js'
+// eslint-disable-next-line local-rules/no-unknown-import
+import { EOL } from '@livy/util/environment'
 
 /**
  * Implements the `formatBatch` part of `FormatterInterface`

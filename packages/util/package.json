@@ -33,7 +33,11 @@
     "./handlers/respect-level-mixin": "./lib/handlers/respect-level-mixin.js",
     "./console-adapter-interface": "./lib/console-adapter-interface.js",
     "./console-adapter": "./lib/console-adapter.js",
-    "./environment": "./lib/environment.js",
+    "./environment": {
+      "browser": "./lib/environment-browser.js",
+      "import": "./lib/environment.js",
+      "require": "./lib/environment.js"
+    },
     "./gated-set": "./lib/gated-set.js",
     "./helpers": "./lib/helpers.js",
     "./html": "./lib/html.js",
