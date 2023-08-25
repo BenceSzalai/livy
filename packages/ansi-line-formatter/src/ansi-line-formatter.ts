@@ -112,7 +112,7 @@ export class AnsiLineFormatter extends LineFormatter {
           return formatted
       }
 
-      return chalkTemplate`{${color} ${formatted}}`
+      return chalkTemplate`{${color} ${formatted.trimEnd()}} `
     }
   }
 
