@@ -1,0 +1,28 @@
+import { AbstractBatchHandler } from '@livy/util/handlers/abstract-batch-handler';
+/**
+ * No-op
+ *
+ * Handles anything, but does nothing, and does not stop bubbling to the rest of the stack.
+ * This can be used for testing, or to disable a handler when overriding a configuration without
+ * influencing the rest of the stack.
+ */
+export class NoopHandler extends AbstractBatchHandler {
+    /**
+     * @inheritdoc
+     */
+    isHandling() {
+        return true;
+    }
+    /**
+     * @inheritdoc
+     */
+    async handle() {
+        return false;
+    }
+    /**
+     * @inheritdoc
+     */
+    handleSync() {
+        return false;
+    }
+}
