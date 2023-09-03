@@ -23,9 +23,9 @@ describe('@livy/console-handler', () => {
 
     // Only check whether logs were correctly mapped to the console
     // Actual contents should be tested in the according formatter tests
-    expect(mockConsole.debug).toHaveBeenCalledTimes(0)
-    expect(mockConsole.log).toHaveBeenCalledTimes(3)
-    expect(mockConsole.info).toHaveBeenCalledTimes(0)
+    expect(mockConsole.debug).toHaveBeenCalledTimes(1)
+    expect(mockConsole.log).toHaveBeenCalledTimes(1)
+    expect(mockConsole.info).toHaveBeenCalledTimes(1)
     expect(mockConsole.warn).toHaveBeenCalledTimes(1)
     expect(mockConsole.error).toHaveBeenCalledTimes(4)
   })

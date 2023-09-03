@@ -57,13 +57,19 @@ export class ConsoleHandler extends AbstractSyncFormattingProcessingHandler {
    * @inheritdoc
    */
   protected writeSync(record: LogRecord, formatted: string) {
+    /* eslint-disable unicorn/prefer-switch */
     if (record.severity <= SeverityMap.error) {
       this.console.error('%s', formatted)
     } else if (record.severity === SeverityMap.warning) {
       this.console.warn('%s', formatted)
+    } else if (record.severity === SeverityMap.debug) {
+      this.console.debug('%s', formatted)
+    } else if (record.severity === SeverityMap.info) {
+      this.console.info('%s', formatted)
     } else {
       this.console.log('%s', formatted)
     }
+    /* eslint-enable unicorn/prefer-switch */
   }
 
   /**
